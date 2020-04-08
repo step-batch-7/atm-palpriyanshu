@@ -18,6 +18,7 @@
    2590 0x11012000
   31999 0xf3412014
 */
+#define size 8
 
 unsigned int get_money(unsigned short int);
-void print_denominations(unsigned short int);
+void print_denominations(unsigned int);
