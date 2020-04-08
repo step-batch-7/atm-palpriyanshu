@@ -6,7 +6,9 @@ void print_denominations(unsigned short int money)
   unsigned int notes = get_money(money);
   int denomination[8] = {2000, 500, 100, 50, 20, 10, 5, 1} ;
   for(int count =0;count < 8 ; count++){
-    printf("%u notes of %d\n",notes >> 28 ,denomination[count]);
+    if(notes >> 28){
+      printf("%u notes of %d\n",notes >> 28 ,denomination[count]);
+    }
     notes = notes << sizeof(int);
   }
 }
