@@ -18,7 +18,17 @@
    2590 0x11012000
   31999 0xf3412014
 */
-#define size 8
+#define SIZE 8
+#define MAX_ALLOWED_AMOUNT 31999
+#define DENOMINATION_LIST {2000, 500, 100, 50, 20, 10, 5, 1}
+#define DO_EIGHT_TIMES for(int count = 0; count < SIZE; count++)
+#define DO_SIX_TIMES for(int count = 0; count < 6; count++)
+#define SEVEN_LSB_OF_HEX_DIGITS 28
+#define MSB_OF_HEX_DIGITS 4
 
-unsigned int get_money(unsigned short int);
-void print_denominations(unsigned int);
+typedef unsigned short int Cash;
+typedef unsigned int Cash_notes;
+
+int is_amount_validate(Cash);
+Cash_notes get_money(Cash);
+void print_denominations(Cash_notes);

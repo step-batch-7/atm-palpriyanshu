@@ -1,34 +1,38 @@
 #include <stdio.h>
 #include "atm.h"
 
-void print_denominations(unsigned int notes)
+int is_amount_validate(Cash amount){
+  return amount == 0 || amount > MAX_ALLOWED_AMOUNT ;
+}
+
+void print_denominations(Cash_notes notes)
 {
-  int denomination[size] = {2000, 500, 100, 50, 20, 10, 5, 1} ;
+  int denomination[SIZE] =DENOMINATION_LIST;
   int no_of_notes = 0;
-  for(int count = 0; count < size; count++){
-    no_of_notes = notes >> 28;
-  if(no_of_notes){
-      printf("%u %s of Rs %d\n", no_of_notes, no_of_notes == 1 ? "note" : "notes", denomination[count]);
-    }
-    notes = notes << sizeof(int);
+
+  DO_EIGHT_TIMES
+  {
+    no_of_notes = notes >> SEVEN_LSB_OF_HEX_DIGITS;
+    no_of_notes && printf("%u %s of Rs %d\n", no_of_notes, no_of_notes ? "note" : "notes", denomination[count]);
+    notes = notes << MSB_OF_HEX_DIGITS;
   }
 }
 
-unsigned int get_money(unsigned short int money)
+Cash_notes get_money(Cash money)
 {
-  unsigned short int amount = money;
-  unsigned int notes = 0, total_notes = 0x00000000;
-  int denomination[size] = {2000, 500, 100, 50, 20, 10, 5, 1} ;
-  int max_allowed_amount = 31999;
-  if(amount == notes || amount > max_allowed_amount){
+  Cash amount = money;
+  Cash_notes no_of_notes = 0, total_notes = 0x00000000;
+  int denomination[SIZE] = DENOMINATION_LIST ;
+  if(is_amount_validate(amount))
+  {
     return 0;
   }
 
-  for(int count = 0; count < size; count++)
+  DO_EIGHT_TIMES
   {
-    notes = amount / denomination[count] ;
+    no_of_notes = amount / denomination[count] ;
     amount %= denomination[count];
-    total_notes = total_notes << sizeof(int) | notes;
+    total_notes = total_notes << MSB_OF_HEX_DIGITS | no_of_notes;
   }
   return total_notes;
 };

@@ -3,12 +3,12 @@
 
 int main(void)
 {
-  unsigned short int amounts[] = {1, 10, 39, 589, 2590, 31999};
-  for (int i = 0; i < 6; i++)
+  Cash amounts[] = {1, 10, 39, 589, 2590, 31999};
+  DO_SIX_TIMES
   {
-    unsigned int notes = get_money(amounts[i]);
-    print_denominations(notes);
-    printf("%5u %08x\n\n", amounts[i], notes);
+    Cash_notes no_of_notes = get_money(amounts[count]);
+    print_denominations(no_of_notes);
+    printf("%5u %08x\n\n", amounts[count], no_of_notes);
   }
 
   return 0;
